@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.basfeupf.core.services.impl.TalendServiseImpl">
+  <service>
+    <provide interface="com.basfeupf.core.services.TalendServise"/>
+  </service>
+  <reference name="appAccessTokenService" interface="com.basfeupf.core.services.AppAccessTokenService" field="appAccessTokenService"/>
+  <reference name="authConfigService" interface="com.basfeupf.core.services.AuthConfigService" field="authConfigService"/>
+  <reference name="azureAuthService" interface="com.basfeupf.core.services.AzureAuthService" field="azureAuthService"/>
+  <reference name="eupfService" interface="com.basfeupf.core.services.EupfService" field="eupfService"/>
+  <reference name="httpClientBuilderFactory" interface="org.apache.http.osgi.services.HttpClientBuilderFactory" field="httpClientBuilderFactory"/>
+  <reference name="logServise" interface="com.basfeupf.core.services.LogServise" field="logServise"/>
+  <reference name="userDetailsService" interface="com.basfeupf.core.services.UserDetailsService" field="userDetailsService"/>
+  <implementation class="com.basfeupf.core.services.impl.TalendServiseImpl"/>
+</scr:component>

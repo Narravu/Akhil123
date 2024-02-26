@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.basfeupf.core.services.impl.AssetDownloadPdfServiceImpl" immediate="true" activate="activate">
+  <service>
+    <provide interface="com.basfeupf.core.services.impl.AssetDownloadPdfServiceImpl"/>
+  </service>
+  <reference name="builder" interface="com.day.cq.search.QueryBuilder" field="builder"/>
+  <implementation class="com.basfeupf.core.services.impl.AssetDownloadPdfServiceImpl"/>
+</scr:component>

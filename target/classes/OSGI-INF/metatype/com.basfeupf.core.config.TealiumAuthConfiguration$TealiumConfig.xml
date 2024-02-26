@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.2.0" localization="OSGI-INF/l10n/com.basfeupf.core.config.TealiumAuthConfiguration$TealiumConfig">
+  <OCD id="com.basfeupf.core.config.TealiumAuthConfiguration$TealiumConfig" name="BASF EUPF Tealium Configuration" description="BASF Tealium Script Auth Configuration">
+    <AD id="tealium.domain" type="String" required="false" name="Tealium Domain" description="Enter Tealium Domain" default=""/>
+  </OCD>
+  <Designate pid="com.basfeupf.core.services.impl.TealiumConfigServiceImpl">
+    <Object ocdref="com.basfeupf.core.config.TealiumAuthConfiguration$TealiumConfig"/>
+  </Designate>
+</metatype:MetaData>

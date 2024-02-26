@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.basfeupf.core.schedulers.StatusPendingScheduler" activate="activate" modified="activate">
+  <property name="scheduler.enable" type="Boolean" value="false"/>
+  <property name="scheduler.expression" type="String" value="* */30 * * * ?"/>
+  <property name="scheduler.concurrent" type="Boolean" value="false"/>
+  <property name="user.update.limit" type="Integer" value="100"/>
+  <service>
+    <provide interface="java.lang.Runnable"/>
+  </service>
+  <reference name="eupfService" interface="com.basfeupf.core.services.EupfService" field="eupfService"/>
+  <reference name="httpCallerService" interface="com.basfeupf.core.services.HttpCallerService" field="httpCallerService"/>
+  <reference name="talendServise" interface="com.basfeupf.core.services.TalendServise" field="talendServise"/>
+  <implementation class="com.basfeupf.core.schedulers.StatusPendingScheduler"/>
+</scr:component>

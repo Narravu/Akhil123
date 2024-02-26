@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.basfeupf.core.servlets.AssetServlet" enabled="true" immediate="true">
+  <property name="sling.servlet.paths" type="String">/bin/basf/eupfportal/portal-programs/program-documents
+/bin/basf/eupfportal/portal-promotions/promotion-documents
+/bin/basf/eupfportal/portal-supply-reports/supply-reports-documents
+/bin/basf/eupfportal/portal-price-sheets/price-sheets-documents</property>
+  <property name="sling.servlet.methods" type="String" value="GET"/>
+  <service>
+    <provide interface="javax.servlet.Servlet"/>
+  </service>
+  <reference name="assetDownloadPdfServiceImpl" interface="com.basfeupf.core.services.impl.AssetDownloadPdfServiceImpl" field="assetDownloadPdfServiceImpl"/>
+  <implementation class="com.basfeupf.core.servlets.AssetServlet"/>
+</scr:component>

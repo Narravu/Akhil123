@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.basfeupf.core.jobs.EmailJobConsumer" immediate="true">
+  <property name="job.topics" type="String" value="basf/eupf/email/job"/>
+  <service>
+    <provide interface="org.apache.sling.event.jobs.consumer.JobConsumer"/>
+  </service>
+  <reference name="eupfService" interface="com.basfeupf.core.services.EupfService" field="eupfService"/>
+  <implementation class="com.basfeupf.core.jobs.EmailJobConsumer"/>
+</scr:component>

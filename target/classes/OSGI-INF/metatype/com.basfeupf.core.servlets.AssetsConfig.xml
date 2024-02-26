@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.2.0" localization="OSGI-INF/l10n/com.basfeupf.core.servlets.AssetsConfig">
+  <OCD id="com.basfeupf.core.servlets.AssetsConfig" name="[BASF] Digital Connect Protected Asset Configuration" description="Configuration for Asset and DownloadPdf Servlets">
+    <AD id="assetSearchPath" type="String" name="Protected document DAM path" description="Assets Path for Digital Connect protected documents" default="/content/dam/basfeupf/rewards-and-programs/programs"/>
+    <AD id="showAssetThumbnail" type="Boolean" name="Asset thumbnail" description="Asset thumbnail returned with asset list" default="{Boolean}false"/>
+    <AD id="assetPromotionPath" type="String" name="Protected document DAM path" description="Assets Path for Partner Portal protected documents" default="/content/dam/basfeupf/rewards-and-programs/promotions"/>
+    <AD id="assetSupplyReportPath" type="String" name="Protected document DAM path" description="Assets Path for Partner Portal Supply Report protected documents" default="/content/dam/basfeupf/supply-reports"/>
+    <AD id="assetPriceSheetsPath" type="String" name="Protected document DAM path" description="Assets Path for Partner Portal Price Sheets protected documents" default="/content/dam/basfeupf/price-sheets"/>
+  </OCD>
+  <Designate pid="com.basfeupf.core.services.impl.AssetDownloadPdfServiceImpl">
+    <Object ocdref="com.basfeupf.core.servlets.AssetsConfig"/>
+  </Designate>
+</metatype:MetaData>

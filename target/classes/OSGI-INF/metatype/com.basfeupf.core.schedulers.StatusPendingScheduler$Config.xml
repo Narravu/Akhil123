@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.2.0" localization="OSGI-INF/l10n/com.basfeupf.core.schedulers.StatusPendingScheduler$Config">
+  <OCD id="com.basfeupf.core.schedulers.StatusPendingScheduler$Config" name="EUPF User Update Scheduler" description="Scheduled Task For User Status Update">
+    <AD id="scheduler.enable" type="Boolean" name="Scheduler Enable" description="Check to Enable the Scheduler" default="false"/>
+    <AD id="scheduler.expression" type="String" name="Cron-job expression" default="*\ */30\ *\ *\ *\ ?"/>
+    <AD id="scheduler.concurrent" type="Boolean" name="Concurrent task" description="Whether or not to schedule this task concurrently" default="false"/>
+    <AD id="user.update.limit" type="Integer" required="false" name="User Update Limit" description="Enter User Update Limit" default="100"/>
+  </OCD>
+  <Designate pid="com.basfeupf.core.schedulers.StatusPendingScheduler">
+    <Object ocdref="com.basfeupf.core.schedulers.StatusPendingScheduler$Config"/>
+  </Designate>
+</metatype:MetaData>

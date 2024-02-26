@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.basfeupf.core.servlets.AccountOverviewServlet" immediate="true">
+  <property name="sling.servlet.resourceTypes" type="String">/bin/eupf/repinfo/repdetails</property>
+  <property name="sling.servlet.extensions" type="String">json</property>
+  <property name="sling.servlet.methods" type="String">POST</property>
+  <property name="sling.servlet.resourceSuperType" type="String" value="sling/bundle/resource"/>
+  <service>
+    <provide interface="javax.servlet.Servlet"/>
+  </service>
+  <reference name="authConfigService" interface="com.basfeupf.core.services.AuthConfigService" field="authConfigService"/>
+  <reference name="httpClientBuilderFactory" interface="org.apache.http.osgi.services.HttpClientBuilderFactory" field="httpClientBuilderFactory"/>
+  <reference name="talendServise" interface="com.basfeupf.core.services.TalendServise" field="talendServise"/>
+  <implementation class="com.basfeupf.core.servlets.AccountOverviewServlet"/>
+</scr:component>

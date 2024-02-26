@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.basfeupf.core.servlets.GenerateValidateTokenNew">
+  <property name="sling.servlet.resourceTypes" type="String">/bin/eupf/token/generatevalidate</property>
+  <property name="sling.servlet.extensions" type="String">json</property>
+  <property name="sling.servlet.methods" type="String">GET</property>
+  <property name="sling.servlet.resourceSuperType" type="String" value="sling/bundle/resource"/>
+  <service>
+    <provide interface="javax.servlet.Servlet"/>
+  </service>
+  <reference name="appAccessTokenService" interface="com.basfeupf.core.services.AppAccessTokenService" field="appAccessTokenService"/>
+  <reference name="authConfigService" interface="com.basfeupf.core.services.AuthConfigService" field="authConfigService"/>
+  <reference name="azureAuthService" interface="com.basfeupf.core.services.AzureAuthServiceNew" field="azureAuthService"/>
+  <reference name="eupfService" interface="com.basfeupf.core.services.EupfServiceNew" field="eupfService"/>
+  <reference name="httpCallerService" interface="com.basfeupf.core.services.HttpCallerService" field="httpCallerService"/>
+  <reference name="jobManager" interface="org.apache.sling.event.jobs.JobManager" field="jobManager"/>
+  <reference name="talendServise" interface="com.basfeupf.core.services.TalendServise" field="talendServise"/>
+  <reference name="userDetailsService" interface="com.basfeupf.core.services.UserDetailsService" field="userDetailsService"/>
+  <implementation class="com.basfeupf.core.servlets.GenerateValidateTokenNew"/>
+</scr:component>

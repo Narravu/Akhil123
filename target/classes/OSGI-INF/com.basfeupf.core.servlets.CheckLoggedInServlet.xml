@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.basfeupf.core.servlets.CheckLoggedInServlet">
+  <property name="sling.servlet.resourceTypes" type="String">/bin/eupf/check/login</property>
+  <property name="sling.servlet.extensions" type="String">json</property>
+  <property name="sling.servlet.methods" type="String">POST</property>
+  <property name="sling.servlet.resourceSuperType" type="String" value="sling/bundle/resource"/>
+  <service>
+    <provide interface="javax.servlet.Servlet"/>
+  </service>
+  <reference name="azureAuthService" interface="com.basfeupf.core.services.AzureAuthService" field="azureAuthService"/>
+  <reference name="eupfService" interface="com.basfeupf.core.services.EupfService" field="eupfService"/>
+  <implementation class="com.basfeupf.core.servlets.CheckLoggedInServlet"/>
+</scr:component>

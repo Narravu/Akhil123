@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.basfeupf.core.services.impl.AuthConfigServiceImpl" immediate="true" activate="activate" modified="activate">
+  <property name="azure.client.id" type="String" value=""/>
+  <property name="azure.tenant" type="String" value=""/>
+  <property name="azure.tenant.id" type="String" value=""/>
+  <property name="azure.client.secret" type="String" value=""/>
+  <property name="azure.enduser.signup.policy" type="String" value=""/>
+  <property name="azure.liteuser.signup.policy" type="String" value=""/>
+  <property name="azure.partner.signup.policy" type="String" value=""/>
+  <property name="azure.signup.Redirect.Uri" type="String" value=""/>
+  <property name="azure.signup.scope" type="String" value=""/>
+  <property name="azure.signup.response.type" type="String" value=""/>
+  <property name="azure.login.policy" type="String" value=""/>
+  <property name="azure.login.Redirect.Uri" type="String" value=""/>
+  <property name="azure.login.scope" type="String" value=""/>
+  <property name="azure.login.response.type" type="String" value=""/>
+  <property name="azure.reset.pswd.policy" type="String" value=""/>
+  <property name="azure.reset.pswd.Redirect.Uri" type="String" value=""/>
+  <property name="azure.reset.pswd.scope" type="String" value=""/>
+  <property name="azure.reset.pswd.response.type" type="String" value=""/>
+  <property name="azure.logout.policy" type="String" value=""/>
+  <property name="azure.logout.Redirect.Uri" type="String" value=""/>
+  <property name="logout.Redirect.Uri" type="String" value=""/>
+  <property name="eupf.endpoint.url" type="String" value=""/>
+  <property name="azure.validate.token.selector" type="String" value=""/>
+  <property name="aws.endpoint.url" type="String" value=""/>
+  <property name="smtp.host" type="String" value=""/>
+  <property name="smtp.port" type="String" value=""/>
+  <property name="smtp.usename" type="String" value=""/>
+  <property name="smtp.pswd" type="String" value=""/>
+  <property name="smtp.configset" type="String" value=""/>
+  <property name="sender.email" type="String" value=""/>
+  <property name="sender.name" type="String" value=""/>
+  <property name="signup.email.subject" type="String" value=""/>
+  <property name="signup.email.body" type="String" value=""/>
+  <property name="signup.forgot.pass.subject" type="String" value=""/>
+  <property name="signup.forgot.pass.body" type="String" value=""/>
+  <property name="eupf.talend.url" type="String" value=""/>
+  <property name="eupf.apigee.captivate.url" type="String" value=""/>
+  <property name="eupf.apigee.talend.key" type="String" value=""/>
+  <property name="eupf.apigee.talend.client.id" type="String" value=""/>
+  <property name="eupf.apigee.captivate.key" type="String" value=""/>
+  <property name="nonce" type="String" value="123456"/>
+  <property name="codeVerifier" type="String" value="g9gfQ8VXqO7Pjl3f-FDafDHqced3XWvcGxa5QgBSB_s"/>
+  <property name="grant.type" type="String" value="authorization_code"/>
+  <property name="offline.access" type="String" value="%20offline_access"/>
+  <property name="azure.extension.no" type="String" value="5414203b3cb64ca1b2ba6122a0e0ddee"/>
+  <property name="disable.mail" type="Boolean" value="false"/>
+  <property name="azure.timeout" type="Integer" value="20000"/>
+  <property name="apigee.timeout" type="Integer" value="20000"/>
+  <property name="aws.timeout" type="Integer" value="20000"/>
+  <property name="cookie.domain.name" type="String" value=".basf.com"/>
+  <property name="user.group.url1" type="String" value="https://graph.microsoft.com/v1.0/users/"/>
+  <property name="user.group.url2" type="String" value="/memberOf?$select=id,displayName"/>
+  <property name="email" type="String" value="gmail.com,"/>
+  <property name="businessSegment" type="String"></property>
+  <property name="aemBusinessSegment" type="String"></property>
+  <property name="accountType" type="String"></property>
+  <property name="sfccRedirectURI" type="String" value=""/>
+  <property name="eupf.talend.url.v1" type="String" value=""/>
+  <service>
+    <provide interface="com.basfeupf.core.services.AuthConfigService"/>
+  </service>
+  <implementation class="com.basfeupf.core.services.impl.AuthConfigServiceImpl"/>
+</scr:component>

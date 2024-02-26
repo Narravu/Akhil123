@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.2.0" localization="OSGI-INF/l10n/com.basfeupf.core.config.AuthConfiguration$AuthConfig">
+  <OCD id="com.basfeupf.core.config.AuthConfiguration$AuthConfig" name="EUPF Configuration" description="BASF EUPF Authentication Configuration">
+    <AD id="azure.client.id" type="String" required="false" name="Azure Client Id" description="Enter Azure Client Id" default=""/>
+    <AD id="azure.tenant" type="String" required="false" name="Azure Tenant" description="Enter Azure Tenant" default=""/>
+    <AD id="azure.tenant.id" type="String" required="false" name="Azure Tenant ID" description="Enter Azure Tenant" default=""/>
+    <AD id="azure.client.secret" type="String" required="false" name="Azure Client Secret" description="Enter Azure Client Secret" default=""/>
+    <AD id="azure.enduser.signup.policy" type="String" required="false" name="Azure Enduser Signup Policy" description="Enter Azure Enduser Signup Policy" default=""/>
+    <AD id="azure.liteuser.signup.policy" type="String" required="false" name="Azure Lite Enduser Signup Policy" description="Enter Azure Lite Enduser Signup Policy" default=""/>
+    <AD id="azure.partner.signup.policy" type="String" required="false" name="Azure Partner Signup Policy" description="Enter Azure Partner Signup Policy" default=""/>
+    <AD id="azure.signup.Redirect.Uri" type="String" required="false" name="Azure Signup Redirect Uri" description="Enter Azure Signup Redirect Uri" default=""/>
+    <AD id="azure.signup.scope" type="String" required="false" name="Azure Signup Scope" description="Enter Azure Signup Scope" default=""/>
+    <AD id="azure.signup.response.type" type="String" required="false" name="Azure Signup Response Type" description="Enter Azure Signup Response Type" default=""/>
+    <AD id="azure.login.policy" type="String" required="false" name="Azure Login Policy" description="Enter Azure Login Policy" default=""/>
+    <AD id="azure.login.Redirect.Uri" type="String" required="false" name="Azure Login Redirect Uri" description="Enter Azure Login Redirect Uri" default=""/>
+    <AD id="azure.login.scope" type="String" required="false" name="Azure Login Scope" description="Enter Azure Login Scope" default=""/>
+    <AD id="azure.login.response.type" type="String" required="false" name="Azure Login Response Type" description="Enter Azure Login Response Type" default=""/>
+    <AD id="azure.reset.pswd.policy" type="String" required="false" name="Azure Reset Password Policy" description="Enter Azure Reset Password Policy" default=""/>
+    <AD id="azure.reset.pswd.Redirect.Uri" type="String" required="false" name="Azure Reset Password Redirect Uri" description="Enter Azure Reset Password Redirect Uri" default=""/>
+    <AD id="azure.reset.pswd.scope" type="String" required="false" name="Azure Reset Password Scope" description="Enter Azure Reset Password Scope" default=""/>
+    <AD id="azure.reset.pswd.response.type" type="String" required="false" name="Azure Reset Password Response Type" description="Enter Azure Reset Password Response Type" default=""/>
+    <AD id="azure.logout.policy" type="String" required="false" name="Azure Logout Policy" description="Enter Azure Logout Policy" default=""/>
+    <AD id="azure.logout.Redirect.Uri" type="String" required="false" name="Azure Logout Redirect Uri" description="Enter Azure Logout Redirect Uri" default=""/>
+    <AD id="logout.Redirect.Uri" type="String" required="false" name="Logout Redirect Uri" description="Enter Logout Redirect Uri" default=""/>
+    <AD id="eupf.endpoint.url" type="String" required="false" name="EUPF Endpoint URL" description="Enter EUPF Endpoint URL" default=""/>
+    <AD id="azure.validate.token.selector" type="String" required="false" name="Azure Validate Token Selector" description="Enter Azure Validate Token Selector" default=""/>
+    <AD id="aws.endpoint.url" type="String" required="false" name="AWS Endpoint URL" description="AWS Endpoint URL" default=""/>
+    <AD id="smtp.host" type="String" required="false" name="SMTP Host" description="Enter SMTP Host" default=""/>
+    <AD id="smtp.port" type="String" required="false" name="SMTP Port" description="Enter SMTP Port" default=""/>
+    <AD id="smtp.usename" type="String" required="false" name="SMTP Usename" description="Enter SMTP Username" default=""/>
+    <AD id="smtp.pswd" type="String" required="false" name="SMTP Password" description="Enter SMTP Password" default=""/>
+    <AD id="smtp.configset" type="String" required="false" name="SMTP Configset" description="Enter SMTP Configset" default=""/>
+    <AD id="smtp.ssl" type="Boolean" required="false" name="SMTP SSL" description="Select SMTP SSL"/>
+    <AD id="sender.email" type="String" required="false" name="Sender Email" description="Enter Sender Email" default=""/>
+    <AD id="sender.name" type="String" required="false" name="Email Sender Name" description="Enter Email Sender Name" default=""/>
+    <AD id="signup.email.subject" type="String" required="false" name="Email Signup Subject" description="Enter Email Signup Subject" default=""/>
+    <AD id="signup.email.body" type="String" required="false" name="Email Signup Body" description="Enter Email Signup Body" default=""/>
+    <AD id="signup.forgot.pass.subject" type="String" required="false" name="Email Forgot Pass Subject" description="Enter Forgot Password Signup Subject" default=""/>
+    <AD id="signup.forgot.pass.body" type="String" required="false" name="Email Forgot Pass Body" description="Enter Forgot Password Signup Body" default=""/>
+    <AD id="eupf.talend.url" type="String" required="false" name="APIGEE-Talend Endpoint URL" description="Enter Talend Endpoint URL" default=""/>
+    <AD id="eupf.apigee.captivate.url" type="String" required="false" name="APIGEE-Captivate Endpoint URL" description="Enter Talend Endpoint URL" default=""/>
+    <AD id="eupf.apigee.talend.key" type="String" required="false" name="APIGEE-Talend X-API Key" description="Enter Talend Endpoint URL" default=""/>
+    <AD id="eupf.apigee.talend.client.id" type="String" required="false" name="APIGEE-Talend X-API Client ID" description="APIGEE-Talend X-API Client ID" default=""/>
+    <AD id="eupf.apigee.captivate.key" type="String" required="false" name="APIGEE-Captivate X-API Key" description="Enter APIGEE-Captivate X-API Key" default=""/>
+    <AD id="nonce" type="String" required="false" name="nonce value" description="Enter nonce value" default="123456"/>
+    <AD id="codeVerifier" type="String" required="false" name="code verifier" description="Enter code verifier value" default="g9gfQ8VXqO7Pjl3f-FDafDHqced3XWvcGxa5QgBSB_s"/>
+    <AD id="grant.type" type="String" required="false" name="grant type" description="Enter grant type value" default="authorization_code"/>
+    <AD id="offline.access" type="String" required="false" name="offline access" description="Enter offline access value" default="%20offline_access"/>
+    <AD id="azure.extension.no" type="String" required="false" name="Azure Extension Number" description="Enter Azure Extension Number" default="5414203b3cb64ca1b2ba6122a0e0ddee"/>
+    <AD id="disable.mail" type="Boolean" name="Disable Mail" description="Disable Mail" default="false"/>
+    <AD id="azure.timeout" type="Integer" name="Azure Connection Timeout" description="Azure Connection Timeout" default="20000"/>
+    <AD id="apigee.timeout" type="Integer" name="APIGEE Connection Timeout" description="APIGEE Connection Timeout" default="20000"/>
+    <AD id="aws.timeout" type="Integer" name="AWS Connection Timeout" description="AWS Connection Timeout" default="20000"/>
+    <AD id="cookie.domain.name" type="String" required="false" name="Cookie Domain Name" description="Enter Cookie Domain Name" default=".basf.com"/>
+    <AD id="user.group.url1" type="String" required="false" name="User Group URL1" description="Enter User Group URL" default="https://graph.microsoft.com/v1.0/users/"/>
+    <AD id="user.group.url2" type="String" required="false" name="User Group URL2" description="Enter User Group URL" default="/memberOf?$select=id\,displayName"/>
+    <AD id="email" type="String" required="false" name="Internal User Domain" description="Internal User Domain" default="gmail.com\,"/>
+    <AD id="businessSegment" type="String" cardinality="2147483647" required="false" name="MDM Business Segment Mapping Config" description="MDM Business Segment Mapping Config" default=""/>
+    <AD id="aemBusinessSegment" type="String" cardinality="2147483647" required="false" name="AEM Business Segment Mapping Config" description="AEM Business Segment Mapping Config" default=""/>
+    <AD id="accountType" type="String" cardinality="2147483647" required="false" name="Account Type Mapping Config" description="Account Type Mapping Config" default=""/>
+    <AD id="sfccRedirectURI" type="String" required="false" name="SFCC US Seeds Redirect Uri" description="Enter SFCC US Seeds Redirect Uri" default=""/>
+    <AD id="eupf.talend.url.v1" type="String" required="false" name="EUPF End Point URL" description="Enter EUPF Endpoint URL" default=""/>
+  </OCD>
+  <Designate pid="com.basfeupf.core.services.impl.AuthConfigServiceImpl">
+    <Object ocdref="com.basfeupf.core.config.AuthConfiguration$AuthConfig"/>
+  </Designate>
+</metatype:MetaData>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.basfeupf.core.jobs.ProfileUpdateJobConsumer" immediate="true">
+  <property name="job.topics" type="String" value="basf/eupf/profileUpdate/job"/>
+  <service>
+    <provide interface="org.apache.sling.event.jobs.consumer.JobConsumer"/>
+  </service>
+  <implementation class="com.basfeupf.core.jobs.ProfileUpdateJobConsumer"/>
+</scr:component>

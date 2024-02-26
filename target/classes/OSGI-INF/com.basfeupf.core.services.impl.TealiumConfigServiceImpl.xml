@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.basfeupf.core.services.impl.TealiumConfigServiceImpl" immediate="true" activate="activate" modified="activate">
+  <property name="tealium.domain" type="String" value=""/>
+  <service>
+    <provide interface="com.basfeupf.core.services.TealiumConfigService"/>
+  </service>
+  <implementation class="com.basfeupf.core.services.impl.TealiumConfigServiceImpl"/>
+</scr:component>

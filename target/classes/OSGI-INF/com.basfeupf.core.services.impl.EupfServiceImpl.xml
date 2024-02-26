@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.basfeupf.core.services.impl.EupfServiceImpl">
+  <service>
+    <provide interface="com.basfeupf.core.services.EupfService"/>
+  </service>
+  <reference name="authConfigService" interface="com.basfeupf.core.services.AuthConfigService" field="authConfigService"/>
+  <reference name="azureAuthService" interface="com.basfeupf.core.services.AzureAuthService" field="azureAuthService"/>
+  <reference name="httpCallerService" interface="com.basfeupf.core.services.HttpCallerService" field="httpCallerService"/>
+  <reference name="httpClientBuilderFactory" interface="org.apache.http.osgi.services.HttpClientBuilderFactory" field="httpClientBuilderFactory"/>
+  <reference name="logServise" interface="com.basfeupf.core.services.LogServise" field="logServise"/>
+  <reference name="pkceService" interface="com.basfeupf.core.services.PkceService" field="pkceService"/>
+  <implementation class="com.basfeupf.core.services.impl.EupfServiceImpl"/>
+</scr:component>

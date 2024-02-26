@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.basfeupf.core.services.impl.AzureAuthServiceImplNew">
+  <service>
+    <provide interface="com.basfeupf.core.services.AzureAuthServiceNew"/>
+  </service>
+  <reference name="authConfigService" interface="com.basfeupf.core.services.AuthConfigService" field="authConfigService"/>
+  <reference name="azureAuthService" interface="com.basfeupf.core.services.AzureAuthService" field="azureAuthService"/>
+  <reference name="httpCallerService" interface="com.basfeupf.core.services.HttpCallerService" field="httpCallerService"/>
+  <implementation class="com.basfeupf.core.services.impl.AzureAuthServiceImplNew"/>
+</scr:component>

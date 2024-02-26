@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="com.basfeupf.core.services.impl.EupfResourceHelperImpl">
+  <service>
+    <provide interface="com.basfeupf.core.services.EupfResourceHelper"/>
+  </service>
+  <implementation class="com.basfeupf.core.services.impl.EupfResourceHelperImpl"/>
+</scr:component>
