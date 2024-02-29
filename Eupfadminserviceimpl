@@ -1,0 +1,454 @@
+
+package com.basfeupf.core.services.impl;
+
+import com.basfeupf.core.services.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.SlingHttpServletResponse;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Objects;
+
+@Component(service = EupfAdminService.class)
+public class EupfAdminServiceImpl implements EupfAdminService {
+
+    @Reference
+    AzureAuthService azureAuthService;
+
+    @Reference
+    HttpCallerService httpCallerService;
+
+    @Reference
+    AuthConfigService authConfigService;
+
+    @Reference
+    LogServise logServise;
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Override
+    public JsonObject getAttrbutesList(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = new JsonObject();
+        requestJson.addProperty("type", "get_attributes_list");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        JsonObject responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            String responseJsonString = responseJson.get("responseJsonString").getAsString();
+            responseJson.add("attributesList", new Gson().fromJson(responseJsonString, JsonArray.class));
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject getSegmentsList(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = new JsonObject();
+        requestJson.addProperty("type", "get_segments_list");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        JsonObject responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            String responseJsonString = responseJson.get("responseJsonString").getAsString();
+            responseJson.add("segmentsList", new Gson().fromJson(responseJsonString, JsonArray.class));
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject getAppsList(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = new JsonObject();
+        requestJson.addProperty("type", "get_apps_list");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        JsonObject responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            String responseJsonString = responseJson.get("responseJsonString").getAsString();
+            responseJson.add("appsList", new Gson().fromJson(responseJsonString, JsonArray.class));
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject insertAttributeDetails(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("attrib_name"))){
+            responseJson.addProperty("errormsg", "Please Provide Valid and unique Attribute Name");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "insert_attribute_detail");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject updateAttributeDetails(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("attrib_id"))){
+            responseJson.addProperty("errormsg", "Please Update valid Attribute Id");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "update_attribute_detail");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject insertSegmentDetails(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("segment_id")) || Objects.isNull(requestJson.get("segment_name"))){
+            responseJson.addProperty("errormsg", "Please Provide Valid and unique Segment Id and Name");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "insert_segment_detail");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject updateSegmentDetails(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("segment_id")) || Objects.isNull(requestJson.get("segment_name"))) {
+            responseJson.addProperty("errormsg", "Please Update valid Segment Id and Name");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "update_segment_detail");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString"))
+            responseJson.remove("responseJsonString");
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject getAttributeSegmentMap(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("segment_id"))) {
+            responseJson.addProperty("errormsg", "Please Provide Valid Segment Id To Find its Attribute Map");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "get_segment_attribute_map");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            String responseJsonString = responseJson.get("responseJsonString").getAsString();
+            responseJson.add("attributeSegmentMapList", new Gson().fromJson(responseJsonString, JsonArray.class));
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject insertAttributeSegmentMap(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("segment_id")) || Objects.isNull(requestJson.get("attrib_id"))){
+            responseJson.addProperty("errormsg", "Please Provide Valid Segment Id and Attribute ID For Mapping");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "insert_segment_attribute_map");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject insertApplicationDetails(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("app_name")) || Objects.isNull(requestJson.get("client_id"))){
+            responseJson.addProperty("errormsg", "Please Provide Valid and unique Application Name and Client Id");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "insert_app_detail");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject updateApplicationDetails(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("app_id")) || Objects.isNull(requestJson.get("app_name")) || Objects.isNull(requestJson.get("client_id"))) {
+            responseJson.addProperty("errormsg", "Please Update valid Application ID, Name and Client Id");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "update_app_detail");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString"))
+            responseJson.remove("responseJsonString");
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject getAppSegmentAttributeMap(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("app_id"))) {
+            responseJson.addProperty("errormsg", "Please Provide Valid App Id To Find its Mapping");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "get_app_segment_attribute_map");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            String responseJsonString = responseJson.get("responseJsonString").getAsString();
+            responseJson.add("appSegmentAttributeMapList", new Gson().fromJson(responseJsonString, JsonArray.class));
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject insertAppSegmentAttributeMap(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("app_id")) || Objects.isNull(requestJson.get("segment_id"))) {
+            responseJson.addProperty("errormsg", "Please Provide Valid App Id, Segment Id For APP segemnt  Mapping");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "insert_app_segment_attribute_map");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject deleteSegmentAttributeMap(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("segment_attrib_id"))) {
+            responseJson.addProperty("errormsg", "Please Provide segment_attrib_id For Deletion of Segment Attribute Map");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "delete_segment_attribute_map");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject deleteAppSegmentAttributeMap(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("asa_id"))) {
+            responseJson.addProperty("errormsg", "Please Provide asa id For Deletion of App Segment Attribute Map");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "delete_app_segment_attribute_map");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject deleteAttributeDetail(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("attrib_id"))) {
+            responseJson.addProperty("errormsg", "Please Provide Valid Attribute ID for Attribute Deletion");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "delete_attribute_detail");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject deleteSegmentDetail(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("segment_id"))) {
+            responseJson.addProperty("errormsg", "Please Provide Valid Segement ID for Segment Detail Deletion");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "delete_segment_detail");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject deleteAppDetail(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("app_id"))) {
+            responseJson.addProperty("errormsg", "Please Provide APP ID Delete APP Detail");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "delete_app_detail");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    public JsonObject insertUserGroup(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("group_name"))) {
+            responseJson.addProperty("errormsg", "Please Provide Group Name");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "insert_group_details");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject deleteusergroup(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("user_group_id"))) {
+            responseJson.addProperty("errormsg", "Please Provide Valid User Group Name for User Group Deletion");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "delete_user_group");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject updateusergroup(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("user_group_id"))) {
+            responseJson.addProperty("errormsg", "Please Provide Valid User Group Name for User Group Update");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "update_user_group");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+    @Override
+    public JsonObject getUserGroupList(SlingHttpServletRequest request, SlingHttpServletResponse response) throws Exception {
+        JsonObject requestJson = new JsonObject();
+        requestJson.addProperty("type", "get_user_group_list");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        JsonObject responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            String responseJsonString = responseJson.get("responseJsonString").getAsString();
+            responseJson.add("segmentsList", new Gson().fromJson(responseJsonString, JsonArray.class));
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+    }
+
+	@Override
+	public JsonObject insertAttributeLocaleMap(SlingHttpServletRequest request, SlingHttpServletResponse response)
+			throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+		if (Objects.isNull(requestJson.get("attribute_id")) || Objects.isNull(requestJson.get("attribute_name"))
+				|| Objects.isNull(requestJson.get("attribute_locale_name"))
+				|| Objects.isNull(requestJson.get("locale"))) {
+            responseJson.addProperty("errormsg", "Please Provide Valid Attribute ID, Name, Translated Locale text, Locale For Attribute Locale  Mapping");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "insert_attribute_locale_map");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+	}
+
+	@Override
+	public JsonObject deleteAttributeLocaleMap(SlingHttpServletRequest request, SlingHttpServletResponse response)
+			throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("id_attribute_locale_map"))) {
+            responseJson.addProperty("errormsg", "Please Provide Attribute Locale id For Deletion of Attribute Locale Map");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "delete_attribute_locale_map");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+	}
+
+	@Override
+	public JsonObject getAttributeLocaleMap(SlingHttpServletRequest request, SlingHttpServletResponse response)
+			throws Exception {
+        JsonObject requestJson = httpCallerService.createRequest(request, response);
+        JsonObject responseJson = new JsonObject();
+        if (Objects.isNull(requestJson.get("attribute_id"))) {
+            responseJson.addProperty("errormsg", "Please Provide Valid Attribute Id To Find its Mapping");
+            return responseJson;
+        }
+        requestJson.addProperty("type", "get_attribute_locale_map");
+        requestJson.addProperty("requestJsonString", requestJson.toString());
+        responseJson = httpCallerService.callPost(requestJson, authConfigService.getAwsEndpointUrl());
+        if (responseJson.has("responseJsonString")) {
+            String responseJsonString = responseJson.get("responseJsonString").getAsString();
+            responseJson.add("attributeMapLocaleList", new Gson().fromJson(responseJsonString, JsonArray.class));
+            responseJson.remove("responseJsonString");
+        }
+        return responseJson;
+	}
+}
