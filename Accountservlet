@@ -1,0 +1,115 @@
+package com.basfeupf.core.servlets;
+import com.google.gson.JsonParser;
+import com.basfeupf.core.constants.Basf_Constant;
+import com.basfeupf.core.services.*;
+import com.google.gson.Gson;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.osgi.services.HttpClientBuilderFactory;
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.SlingHttpServletResponse;
+import org.apache.sling.api.servlets.HttpConstants;
+import org.apache.sling.api.servlets.SlingAllMethodsServlet;
+import org.apache.sling.servlets.annotations.SlingServletResourceTypes;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.Enumeration;
+import javax.servlet.ServletException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import javax.servlet.Servlet;
+import com.google.gson.JsonObject;
+
+@Component(service = Servlet.class,immediate = true)
+@SlingServletResourceTypes(resourceTypes = "/bin/eupf/repinfo/repdetails", extensions = "json", methods = {
+		HttpConstants.METHOD_POST })
+public class AccountOverviewServlet extends SlingAllMethodsServlet {
+
+	private static final long serialVersionUID = 1L;
+
+	@Reference
+	AuthConfigService authConfigService;
+	@Reference
+	TalendServise talendServise;
+	@Reference
+	private HttpClientBuilderFactory httpClientBuilderFactory;
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	JsonObject jsonObject = new JsonObject();
+
+	@Override
+	protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
+		//talendServise.doProcess(request, response);
+		PrintWriter out = response.getWriter();
+		response.setContentType("application/json");
+		JsonObject responseJson = handlePost(request, response);
+		out.println(responseJson);
+
+	}
+	private JsonObject handlePost(SlingHttpServletRequest request, SlingHttpServletResponse response) {
+
+		JsonObject jsonObject = new JsonObject();
+		try {
+			String[] selectors = request.getRequestPathInfo().getSelectors();
+			if (selectors.length > 0) {
+				switch (selectors[0]) {
+					case "get_repo_details":
+					//	jsonObject =talendServise.process(new Gson().fromJson(convertRequestBodyToString(request), JsonObject.class),"contact/alphabet", null);
+						jsonObject=talendServise.doCallPost(new Gson().fromJson(convertRequestBodyToString(request), JsonObject.class),"https://dev.agrohub.basf.com/basf-eupf-eapi/api/services/v1/contact/alphabet",extractHeadersToJson(request));
+						break;
+
+					default:
+						jsonObject.addProperty(Basf_Constant.ERROR_MSG, selectors[0] + " - no service found");
+						break;
+				}
+			} else {
+				jsonObject.addProperty(Basf_Constant.ERROR_MSG, "Please select a valid service");
+			}
+
+		} catch (Exception e) {
+			jsonObject.addProperty(Basf_Constant.ERROR_MSG, e.getClass().getSimpleName() + " : " + e.getMessage());
+			StackTraceElement[] sTElements = e.getStackTrace();
+			for (StackTraceElement stackTraceEle : sTElements) {
+				String corePackageName = this.getClass().getPackage().getName().split("core")[0] + "core";
+				if (stackTraceEle.getClassName().contains(corePackageName)) {
+					StringBuffer stringBuffer = new StringBuffer();
+					stringBuffer.append("\n{").append("\n\t\"ClassName\" : \"" + stackTraceEle.getClassName() + "\"")
+							.append("\n\t\"MethodName\" : \"" + stackTraceEle.getMethodName() + "\",")
+							.append("\n\t\"LineNumber\" : \"" + stackTraceEle.getLineNumber() + "\",")
+							.append("\n\t\"" + e.getClass().getSimpleName() + "\" : \"" + e.getMessage() + "\"")
+							.append("\n}\n");
+					logger.error(stringBuffer.toString());
+					jsonObject.addProperty(Basf_Constant.ERROR_MSG, stringBuffer.toString());
+					break;
+				}
+			}
+		}
+		return jsonObject;
+	}
+	private String convertRequestBodyToString(SlingHttpServletRequest request) {
+		String body = null;
+		try {
+			body = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
+		} catch (IOException e) {
+			// Handle IOException
+			e.printStackTrace();
+		}
+		return body;
+	}
+	private JsonObject convertStringToJson(String jsonString) {
+		return null;
+	}
+	private JsonObject extractHeadersToJson(SlingHttpServletRequest request) {
+		JsonObject headersJsonObject = new JsonObject();
+		Enumeration<String> hederNames=request.getHeaderNames();
+		// Iterate through the header names
+
+		while (hederNames.hasMoreElements()) {
+			String headerName=hederNames.nextElement();
+			String headerValue = request.getHeader(headerName);
+			headersJsonObject.addProperty(headerName, headerValue);
+		}
+		return headersJsonObject;
+	}
+}
