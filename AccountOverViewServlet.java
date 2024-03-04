@@ -1,7 +1,6 @@
-package com.shinesolutions.models;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.http.ParseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -35,7 +34,7 @@ public class MainServlet extends SlingAllMethodsServlet {
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
-        out.write(talendPost(TALENND_API,getRequestJsonObject(request).toString(),"contact/alphabet"));
+        out.print(talendPost(TALENND_API,getRequestJsonObject(request),"contact/alphabet"));
 
     }
 
@@ -68,10 +67,11 @@ public class MainServlet extends SlingAllMethodsServlet {
     }
 
     // PUT THE BELOW METHOD IN SERVICE LAYER
-    public String talendPost(String url, String jsonBody,String endpoint) {
+    public JsonObject talendPost(String url, JsonObject jsonBody,String endpoint)
+    {
         String result = null;
         HttpPost httpPost = new HttpPost(TALENND_API+endpoint);
-        httpPost.setEntity(new StringEntity(jsonBody, ContentType.APPLICATION_JSON));
+        httpPost.setEntity(new StringEntity(jsonBody.toString(), ContentType.APPLICATION_JSON));
         httpPost.addHeader("client_id", client_id);
         httpPost.addHeader("client_secret", client_secret);
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
@@ -83,7 +83,7 @@ public class MainServlet extends SlingAllMethodsServlet {
             e.printStackTrace();
             return null;
         }
-        return result;
+        return (JsonObject) new JsonParser().parse(result);
     }
 
 }
